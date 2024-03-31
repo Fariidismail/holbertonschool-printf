@@ -5,9 +5,6 @@
 
 int _printf(const char *format, ...)
 {
-	int *ptr = format;
-	printf("sa\n");
-	return (ptr);
 	int i = 0, len = 0;
 	va_list ptr;
 
