@@ -8,7 +8,7 @@
  *
  *Return - integer
  */
-int _printf(const char *format, ...)
+int _printf(const char *format, ...) 
 {
 	int i = 0
 	int len = 0;
