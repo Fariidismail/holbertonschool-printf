@@ -1,54 +1,53 @@
 #include <stdio.h>
 #include <stdarg.h>
-#include <string.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include "main.h"
 /**
- *_printf - printf
- *@format: A list of types of arguments passed to the function
+ * _printf - Custom printf function
+ * @format: A list of types of arguments passed to the function
  *
- *Return - integer
+ * Return: integer
  */
 int _printf(const char *format, ...)
 {
-	int i = 0;
-	int len = 0;
+	int i, len = 0;
 	va_list ptr;
-
 	va_start(ptr, format);
 	if (!format)
 	{
 		exit(98);
 	}
-	while (format[i] != '\0')
+	for (i = 0; format[i] != '\0'; i++)
 	{
 		if (format[i] == '%')
 		{
 			if (format[i + 1] == 'c')
-			{
-				_putchar(va_arg(ptr, int));
-				i++;
-			}
+				print_char(ptr, &len);
 			else if (format[i + 1] == 's')
-			{
-				char *str = va_arg(ptr, char*);
-				write(1, str, strlen(str));
-				len += strlen(str);
-				i++;
-			}
+				print_string(ptr, &len);
 			else if (format[i + 1] == '%')
 			{
 				_putchar('%');
-				i++;
+				len++;
 			}
+			else if (format[i + 1] == '\0')
+			{
+				continue;
+			}
+			else
+			{
+				_putchar('%');
+				_putchar(format[i + 1]);
+				len += 2;
+			}
+			i++;
 		}
 		else
 		{
 			_putchar(format[i]);
 			len++;
 		}
-		i++;
 	}
 	va_end(ptr);
 	return (len);
